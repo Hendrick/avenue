@@ -1,4 +1,4 @@
-(defproject com.hendrick/avenue "0.1.0"
+(defproject com.hendrick/avenue "0.1.0-SNAPSHOT"
   :description "Compojure routing assistance"
   :url "http://github.com/hendrick/avenue"
   :license {:name "Eclipse Public License"
