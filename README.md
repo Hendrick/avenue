@@ -22,9 +22,9 @@ You've got Ajax requests...
 And you might have some form posts...
 ```Clojure
   (form-post
-    "/cash-position/create"
-    [:user.role/superAdmin :user.role/dataEntry]
-    actions/edit-or-create-cash-position)
+    "/admin/create-account"
+    [:user.role/superAdmin]
+    actions/create-account)
 ```
 
 All Avenue does is provide a little shorthand for these common cases. You can mix and match Avenue-style routes with regular ring routes.
