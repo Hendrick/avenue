@@ -127,7 +127,7 @@ The data structure that gets passed to the auth-fn is exactly what's specified i
 
 ## License
 
-Copyright © 2015 FIXME
+Copyright 2015 Hendrick Automotive Group
 
 Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.
