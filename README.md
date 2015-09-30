@@ -57,7 +57,7 @@ For example, you might have several routes that are only accessible by admin use
 (page
   "/admin/user-permissions"
   :adminOnly
-  view/user-permissions")
+  view/user-permissions)
 
 (xhr
   "/admin/update-user-permissions"
