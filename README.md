@@ -88,9 +88,9 @@ The keywords you choose are actually opaque to avenue, you specify their meaning
 
 If you find keywords aren't sufficient to express your auth requirements, you
 can use any arbitrarily complex Clojure data structure. It's up to you to find
-an `:auth-fn` and route data-structure that best suits your needs.
+the `:auth-fn` and route data-structure that best suits your needs.
 
-For a working example, check out the sample app.
+For a working example, check out the [sample app](./sample-app/src/sample_app/core.clj).
 
 ## Configuration
 
