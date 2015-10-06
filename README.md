@@ -94,7 +94,7 @@ For a working example, check out the [sample app](./sample-app/src/sample_app/co
 
 ## Configuration
 
-To use Avenue, you must include `wrap-auth` in your middleware stack. It takes
+To use Avenue, you must include `av/wrap-auth` in your middleware stack. It takes
 a few options:
 
 `:auth-fn` is a function that returns a truthy or falsey value indicating
@@ -115,7 +115,7 @@ macros.
 
 If you don't care much about auth, you can omit `:auth-fn` and
 `:unauthorized-page-fn` from the configuration that's passed to
-`wrap-auth`, and also drop the auth data structures from your routes.
+`av/wrap-auth`, and also drop the auth data structures from your routes.
 
 ## License
 
