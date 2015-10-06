@@ -29,7 +29,7 @@ And you might have some form posts...
 ```
 
 All Avenue does is provide a little shorthand for these common cases. You can
-mix and match Avenue-style routes with regular ring routes.
+mix and match Avenue-style routes with regular Compojure routes.
 
 ## Usage / Arguments
 
