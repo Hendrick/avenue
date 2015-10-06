@@ -46,7 +46,7 @@ A call looks like this
   actions) ;; variable
 ```
 
-The http-method and url arguments are just forwarded to ring.  `auth-data` is
+The http-method and url arguments are just forwarded to Compojure/ring.  `auth-data` is
 any data structure that identifies who is allowed to access this route.  The
 contents of `auth-data` are not used by Avenue. Avenue will pass the contents
 of `auth-data` to your `:auth-fn`
@@ -114,8 +114,8 @@ macros.
 `:auth-fn` returns a falsey value.
 
 If you don't care much about auth, you can omit `:auth-fn` and
-`:unauthorized-page-fn` from your configuration, and also drop the auth data
-structures from your routes.
+`:unauthorized-page-fn` from the configuration that's passed to
+`wrap-auth`, and also drop the auth data structures from your routes.
 
 ## License
 
