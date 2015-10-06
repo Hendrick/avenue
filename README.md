@@ -1,6 +1,7 @@
 # Avenue
 
-Avenue is small set of macros for web apps that use Compojure. Primarily, we provide a simple mechanism for authorization.
+Avenue is small set of macros for web apps that use Compojure. Primarily, it
+provides a simple mechanism for authorization.
 
 In a web app, most requests fall into one of a few categories. You have pages...
 
@@ -27,11 +28,14 @@ And you might have some form posts...
     actions/create-account)
 ```
 
-All Avenue does is provide a little shorthand for these common cases. You can mix and match Avenue-style routes with regular ring routes.
+All Avenue does is provide a little shorthand for these common cases. You can
+mix and match Avenue-style routes with regular ring routes.
 
 ## Usage / Arguments
 
-Each of the `page`, `xhr`, and `form-post` macros require the same arguments, with the exception that for `xhr` calls, you must specify the request's HTTP method.
+Each of the `page`, `xhr`, and `form-post` macros require the same arguments,
+with the exception that for `xhr` calls, you must specify the request's HTTP
+method.
 
 A call looks like this
 ```Clojure
@@ -42,44 +46,31 @@ A call looks like this
   actions) ;; variable
 ```
 
-I hope that the purpose of the http-method and url arguments are evident. They
-are forwarded on to ring. `auth-data` is any data structure that identifies who is allowed to access this route.
-The contents of `auth-data` are not used by Avenue. Avenue will pass the contents of `auth-data` to your `:auth-fn`
+The http-method and url arguments are just forwarded to ring.  `auth-data` is
+any data structure that identifies who is allowed to access this route.  The
+contents of `auth-data` are not used by Avenue. Avenue will pass the contents
+of `auth-data` to your `:auth-fn`
 
-For example, you might have several routes that are only accessible by admin users, you can indicate this with a keyword.
+For example, you might have several routes that are only accessible by admin
+users, you can indicate this with a keyword.
 
 ```Clojure
 (page
   "/admin/do-secret-stuff"
   :adminOnly
   view/show-secret-page)
-
-(page
-  "/admin/user-permissions"
-  :adminOnly
-  view/user-permissions)
-
-(xhr
-  "/admin/update-user-permissions"
-  :adminOnly
-  actions/update-user-permissions)
 ```
 
-You might have some other routes that are accessible to everyone, mark those with a different keyword.
+You might have some other routes that are accessible to everyone.
 
 ```Clojure
 (page
   "/welcome"
   :allowEveryone
   view/welcome-page)
-
-(page
-  "/public/kittens-and-ponies"
-  :allowEveryone
-  view/kittens-and-ponies)
 ```
 
-Your auth-fn could now look something like this:
+The keywords you choose are actually opaque to avenue, you specify their meaning in an `:auth-fn`.
 
 ```Clojure
 (defn -main [& {:as args}]
@@ -99,31 +90,32 @@ If you find keywords aren't sufficient to express your auth requirements, you
 can use any arbitrarily complex Clojure data structure. It's up to you to find
 an `:auth-fn` and route data-structure that best suits your needs.
 
+For a working example, check out the sample app.
+
 ## Configuration
 
-Avenue routes are dependent on some middleware. To use Avenue, you must include `wrap-auth` in your middleware stack.
+To use Avenue, you must include `wrap-auth` in your middleware stack. It takes
+a few options:
 
-```Clojure
-(defn -main [& {:as args}]
-  (let [app (-> routes
-                (av/wrap-auth {:auth-fn (fn [allowed-roles req]
-                                          (let [user (db/find-user (:user-id (:session req)))]
-                                            (some (partial = (:role user)) allowed-roles)))
-                               :authorized-page-fn show-page
-                               :unauthorized-page-fn redirect-to-welcome-page})
-                (handler/site {:session {:store (cookie/cookie-store {:key "this is a secret"})}}))]
-    (web/run app args)))
-```
+`:auth-fn` is a function that returns a truthy or falsey value indicating
+whether a user is allowed to issue a request.  As parameters, we'll pass the data
+structure that's specified along with the route, and the request itself.
 
-`wrap-auth` requires that you pass it a hash with some options.
+The data structure that gets passed to the auth-fn is exactly what's specified
+in the route definition. It is the second argument of the `page` or `form-post`
+macro, and the third argument of the `xhr` macro. Avenue does nothing with this
+data except to pass it to the auth-fn.
 
-`:auth-fn` is a function that returns a truthy or falsey value indicating whether a user is allowed to issue a request. As parameters, we'll pass a data structure that's specified along with the route, and the request itself.
+`:authorized-page-fn` is a function that the `page` macro will call with the
+result of the route's actions. It's ignored by the `xhr` and `form-post`
+macros.
 
-The data structure that gets passed to the auth-fn is exactly what's specified in the route definition. It is the second argument of the `page` or `form-post` macro, and the third argument of the `xhr` macro. Avenue does nothing with this data except to pass it to the auth-fn.
+`:unauthorized-page-fn` is a function that any macro will call when the
+`:auth-fn` returns a falsey value.
 
-`:authorized-page-fn` is a function that the `page` macro will call with the result of the route's actions.
-
-`:unauthorized-page-fn` is a function that any macro will call when the `:auth-fn` returns a falsey value.
+If you don't care much about auth, you can omit `:auth-fn` and
+`:unauthorized-page-fn` from your configuration, and also drop the auth data
+structures from your routes.
 
 ## License
 
