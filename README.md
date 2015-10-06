@@ -98,7 +98,7 @@ To use Avenue, you must include `av/wrap-auth` in your middleware stack. It take
 a few options:
 
 `:auth-fn` is a function that returns a truthy or falsey value indicating
-whether a user is allowed to issue a request.  As parameters, we'll pass the data
+whether a user is allowed access.  As parameters, we'll pass the data
 structure that's specified along with the route, and the request itself.
 
 The data structure that gets passed to the auth-fn is exactly what's specified
