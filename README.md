@@ -3,6 +3,16 @@
 Avenue is small set of macros for web apps that use Compojure. Primarily, it
 provides a simple mechanism for authorization.
 
+## Installation
+
+Add the following dependency to your `project.clj` file:
+
+```
+[com.hendrick/avenue "0.1.0"]
+```
+
+## What is it?
+
 In a web app, most requests fall into one of a few categories. You have pages...
 
 ```Clojure
