@@ -10,7 +10,7 @@
 (defn show-hiccup-page [req action-result]
   (h/html action-result))
 
-(defn show-kittens-and-ponies []
+(defn show-kittens-and-ponies [_req]
   [:div
     [:h1 "Kittens and ponies!"]
     [:iframe {:width "560" :height "315" :src "https://www.youtube.com/embed/ipMa_yRqQew" :frameborder "0" :allowfullscreen "allowfullscreen"}]])
