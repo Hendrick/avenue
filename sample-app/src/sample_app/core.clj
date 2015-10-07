@@ -72,8 +72,8 @@
     update-user-permissions))
 
 (def app (-> app-routes
-             (av/wrap-auth {:auth-fn (fn [allowed-roles req]
-                                       (condp = allowed-roles
+             (av/wrap-auth {:auth-fn (fn [auth-data req]
+                                       (condp = auth-data
                                          :allowEveryone true
                                          :adminOnly (not (nil? (:user-id (:session req))))
                                          false))

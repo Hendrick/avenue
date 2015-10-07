@@ -85,8 +85,8 @@ The keywords you choose are actually opaque to avenue, you specify their meaning
 ```Clojure
 (defn -main [& {:as args}]
   (let [app (-> routes
-                (av/wrap-auth {:auth-fn (fn [allowed-roles req]
-                                          (condp = allowed-roles
+                (av/wrap-auth {:auth-fn (fn [auth-data req]
+                                          (condp = auth-data
                                             :allowEveryone true
                                             :adminOnly (:is-admin (db/find-user (:user-id (:session req))))
                                             false))
