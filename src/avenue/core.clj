@@ -28,7 +28,7 @@
                  {:body (pr-str (if (seq? action-result)
                                   (doall action-result)
                                   action-result))
-                  :headers {"Content-Type" "text/edn; charset=utf-8"}})
+                  :headers {"Content-Type" "application/edn; charset=utf-8"}})
               ~(fn [_req]
                  {:status 403
                   :body "Forbidden"})
